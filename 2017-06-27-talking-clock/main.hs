@@ -74,7 +74,7 @@ tensOfMinutesFromString u
 
 individualMinutesFromString :: [Char] -> [Char]
 individualMinutesFromString u
-  | t == 0  =  ""
+  | t == 0  =  " clock"
   | t == 1  =  " one"
   | t == 2  =  " two"  
   | t == 3  =  " three"  
