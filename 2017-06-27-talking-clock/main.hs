@@ -1,14 +1,18 @@
 import System.Environment
+import Data.List (intersperse)
 
 --
 main :: IO ()
 main = do
     args <- getArgs
     if length args >= 1
-       then putStrLn (printTime (args !! 0))
+       then putStrLn (concat (intersperse "\n" (map printTime args)))
        else putStrLn "Sorry, you need to pass a time"
 
---
+-------------------------
+--Time formatting stuff--
+-------------------------
+
 printTime :: [Char] -> [Char]
 printTime [a,b,':','1','5'] = "It's quarter past " ++ (hoursFromString [a,b]) ++ (getMorningAfternoonDescriptor [a,b])
 printTime [a,b,':','3','0'] = "It's half past "    ++ (hoursFromString [a,b]) ++ (getMorningAfternoonDescriptor [a,b])
@@ -20,7 +24,9 @@ printTime [a,b,':',c,d]     =
            else individualMinutesFromString [d])
        ++ getMorningAfternoon [a,b]
 
---
+--------------------
+--Hours Conversion--
+--------------------
 
 hoursFromNum :: Int -> [Char]
 hoursFromNum i
@@ -50,6 +56,10 @@ nextHourFromString a
 
 hoursFromString :: [Char] -> [Char]
 hoursFromString u = hoursFromNum (read u)
+
+---------------------
+--Minute Conversion--
+---------------------
 
 tensOfMinutesFromString :: Char -> [Char]
 tensOfMinutesFromString u
@@ -86,6 +96,10 @@ individualMinutesFromString u
   | t == 19 = " nineteen"
   where
       t = read (u)
+
+---------------------------------
+--Morning / Afternoon Indicator--
+---------------------------------
 
 getMorningAfternoon :: [Char] -> [Char]
 getMorningAfternoon u
