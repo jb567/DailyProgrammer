@@ -14,6 +14,7 @@ main = do
 -------------------------
 
 printTime :: [Char] -> [Char]
+printTime [a,b,':','0','0'] = "It's " ++ (hoursFromString [a,b]) ++ " o'clock" ++ (getMorningAfternoonDescriptor [a,b])
 printTime [a,b,':','1','5'] = "It's quarter past " ++ (hoursFromString [a,b]) ++ (getMorningAfternoonDescriptor [a,b])
 printTime [a,b,':','3','0'] = "It's half past "    ++ (hoursFromString [a,b]) ++ (getMorningAfternoonDescriptor [a,b])
 printTime [a,b,':','4','5'] = "It's quarter to "   ++ (hoursFromString [a,b]) ++ (getMorningAfternoonDescriptor [a,b])
@@ -23,6 +24,7 @@ printTime [a,b,':',c,d]     =
            then individualMinutesFromString (c:d:[])
            else individualMinutesFromString [d])
        ++ getMorningAfternoon [a,b]
+printTime _ = "Sorry, you need to pass in a valid time"
 
 --------------------
 --Hours Conversion--
@@ -74,7 +76,7 @@ tensOfMinutesFromString u
 
 individualMinutesFromString :: [Char] -> [Char]
 individualMinutesFromString u
-  | t == 0  =  " clock"
+  | t == 0  =  ""
   | t == 1  =  " one"
   | t == 2  =  " two"  
   | t == 3  =  " three"  
